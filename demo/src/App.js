@@ -141,6 +141,10 @@ function App() {
           </Stack>
         )}
       </Stack>
+      <Stack align="center">
+        <a style={{textDecoration:"underline"}} href="https://github.com/DavidBarrick/cognito-wallet-login" target="_blank" rel="noreferrer">GitHub Repo</a>
+        <Text>Created By <a style={{textDecoration:"underline"}} href="https://twitter.com/DavBarrick" target="_blank" rel="noreferrer">@DavBarrick</a></Text>
+      </Stack>
     </Stack>
   );
 }
