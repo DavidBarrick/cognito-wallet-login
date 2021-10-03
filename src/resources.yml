@@ -1,0 +1,44 @@
+service: wallet-login-resources
+
+custom:
+  USER_POOL_NAME: users
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+resources:
+  Resources:
+    UserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 30
+            RequireLowercase: false
+            RequireNumbers: false
+            RequireSymbols: false
+            RequireUppercase: false
+        UserPoolName: ${self:custom.USER_POOL_NAME}
+    UserPoolWebClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: UserPoolWebClient
+        GenerateSecret: false
+        UserPoolId: !Ref UserPool
+        ExplicitAuthFlows:
+          - ALLOW_REFRESH_TOKEN_AUTH
+          - ALLOW_CUSTOM_AUTH
+        PreventUserExistenceErrors: ENABLED
+  Outputs:
+    UserPoolId:
+      Value:
+        Ref: UserPool
+    UserPoolArn:
+      Value:
+        Fn::GetAtt: [UserPool, Arn]
+    UserPoolName:
+      Value: ${self:custom.USER_POOL_NAME}
+    UserPoolWebClient:
+      Value:
+        Ref: UserPoolWebClient

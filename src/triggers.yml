@@ -1,0 +1,38 @@
+service: wallet-login-triggers
+
+custom:
+  UserPoolName: ${cf:wallet-login-resources-${self:provider.stage}.UserPoolName}
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  createAuthChallenge:
+    handler: createAuthChallenge.handler
+    events:
+      - cognitoUserPool:
+          pool: users
+          trigger: CreateAuthChallenge
+          existing: true
+  defineAuthChallenge:
+    handler: defineAuthChallenge.handler
+    events:
+      - cognitoUserPool:
+          pool: ${self:custom.UserPoolName}
+          trigger: DefineAuthChallenge
+          existing: true
+  preSignUp:
+    handler: preSignUp.handler
+    events:
+      - cognitoUserPool:
+          pool: ${self:custom.UserPoolName}
+          trigger: PreSignUp
+          existing: true
+  verifyAuthChallenge:
+    handler: verifyAuthChallenge.handler
+    events:
+      - cognitoUserPool:
+          pool: ${self:custom.UserPoolName}
+          trigger: VerifyAuthChallengeResponse
+          existing: true

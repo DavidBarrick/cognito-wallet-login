@@ -68,6 +68,9 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
+# NPM Integrity file
+package-lock.json*
+
 # dotenv environment variables file
 .env
 .env.test
@@ -102,3 +105,5 @@ dist
 
 # TernJS port file
 .tern-port
+
+demo/build/*
