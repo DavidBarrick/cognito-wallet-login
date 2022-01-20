@@ -28,7 +28,7 @@ function App() {
         const messageToSign = cognitoUser.challengeParam.message;
         const signature = await window.ethereum.request({
           method: 'personal_sign',
-          params: [address, messageToSign],
+          params: [messageToSign, address],
         });
         await Auth.sendCustomChallengeAnswer(cognitoUser, signature);
         await checkUser();
